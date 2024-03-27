@@ -28,6 +28,38 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
+    dap.adapters.gdb = {
+      type = 'executable',
+      command = 'rust-gdb',
+      name = 'gdb',
+      args = { '-i', 'dap' },
+    }
+    dap.configurations.rust = {
+      {
+        type = 'gdb',
+        name = 'Launch',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+      },
+    }
+    dap.configurations.c = {
+      {
+        name = 'Launch',
+        type = 'gdb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopAtBeginningOfMainSubprogram = false,
+      },
+    }
+
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -85,6 +117,6 @@ return {
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     -- Install golang specific config
-    require('dap-go').setup()
+    -- require('dap-go').setup()
   end,
 }
