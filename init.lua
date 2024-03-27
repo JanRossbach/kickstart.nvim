@@ -192,7 +192,9 @@ vim.keymap.set('n', '<leader>wd', vim.cmd.q, { desc = 'Delete Window' })
 
 vim.keymap.set('n', '<leader><leader>x', vim.cmd.source, { desc = 'Source current buffer' })
 vim.keymap.set('n', '<leader>fs', vim.cmd.w, { desc = 'Save current buffer' })
--- vim.keymap.set("n", "<leader>gs", "<cmd>vsplit<CR><cmd>terminal gitu<CR>i", { desc = "Open Magit" })
+
+vim.keymap.set('n', '<leader>gs', '<cmd>vertical G<CR>', { desc = 'Open Fugitive' })
+
 vim.keymap.set('n', '<leader>fm', '<cmd>vsplit<CR><cmd>terminal yazi<CR>i', { desc = 'Open Yazi' })
 vim.keymap.set('n', '<leader>ocd', '<cmd>cd %:p:h<CR>', { desc = 'Change workingDirectory to current buffer dir' })
 vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true, silent = true })

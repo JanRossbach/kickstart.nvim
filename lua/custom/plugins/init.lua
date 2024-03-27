@@ -3,12 +3,12 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-	-- 'vifm/vifm.vim',
-	"ThePrimeagen/vim-be-good",
-	"tpope/vim-fugitive",
-	"lvimuser/lsp-inlayhints.nvim",
-	"mfussenegger/nvim-jdtls",
-	"mhinz/vim-startify",
-	"jvgrootveld/telescope-zoxide",
-	-- 'github/copilot.vim',
+  -- 'vifm/vifm.vim',
+  'ThePrimeagen/vim-be-good',
+  'tpope/vim-fugitive',
+  'lvimuser/lsp-inlayhints.nvim',
+  'mfussenegger/nvim-jdtls',
+  'mhinz/vim-startify',
+  'jvgrootveld/telescope-zoxide',
+  -- 'github/copilot.vim',
 }
