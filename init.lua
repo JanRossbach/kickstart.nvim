@@ -1009,6 +1009,8 @@ require('lazy').setup {
       -- Load the colorscheme here
       if not vim.g.neovide then
         require('kanagawa').setup { transparent = true }
+      else
+        vim.g.neovide_transparency = 0.85
       end
       --vim.cmd.colorscheme 'tokyonight-moon'
       -- vim.cmd.colorscheme 'gruvbox'
