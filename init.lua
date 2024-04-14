@@ -151,6 +151,8 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.tabstop = 4
+
 -- Enable obsidian ui elements
 vim.opt.conceallevel = 2
 
@@ -199,8 +201,7 @@ vim.keymap.set('n', '<leader>fm', '<cmd>vsplit<CR><cmd>terminal yazi<CR>i', { de
 vim.keymap.set('n', '<leader>ocd', '<cmd>cd %:p:h<CR>', { desc = 'Change workingDirectory to current buffer dir' })
 vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>oi', '<cmd>e ~/Brain/inbox.md<CR>', { desc = 'Open inbox' })
-vim.keymap.set('n', '<leader>fed', '<cmd>e ~/dotfiles/nvim/init.lua<CR>', { desc = 'Open nvim config' })
+vim.keymap.set('n', '<leader>fed', '<cmd>e ~/.config/nvim/init.lua<CR>', { desc = 'Open nvim config' })
 
 -- Fugitive keymaps and configuration
 
@@ -211,6 +212,23 @@ vim.keymap.set('n', '<leader>mm', '<cmd>MakeitOpen<cr>', { noremap = true, silen
 vim.keymap.set('n', '<leader>mr', '<cmd>MakeitRedo<cr>', { noremap = true, silent = true, desc = '[M]ake [R]edo' })
 vim.keymap.set('n', '<leader>ms', '<cmd>MakeitStop<cr>', { noremap = true, silent = true, desc = '[M]ake [S]top' })
 vim.keymap.set('n', '<leader>ms', '<cmd>MakeitToggleResults<cr>', { noremap = true, silent = true, desc = '[M]ake [T]oggle' })
+
+vim.keymap.set('n', '<leader>on', ':ObsidianNew<CR>', { noremap = true, silent = true, desc = '[O]bsidian [N]ew' })
+vim.keymap.set('n', '<leader>oo', ':ObsidianOpen<CR>', { noremap = true, silent = true, desc = '[O]bsidian [O]pen App' })
+vim.keymap.set('n', '<leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true, desc = '[O]bsidian [T]oday' })
+vim.keymap.set('n', '<leader>of', ':ObsidianQuickSwitch<CR>', { noremap = true, silent = true, desc = '[O]bsidian [F]ind Note' })
+vim.keymap.set('n', '<leader>of', ':ObsidianQuickSwitch<CR>', { noremap = true, silent = true, desc = '[O]bsidian [T]oday' })
+vim.keymap.set('n', '<leader>ol', ':ObsidianLinks<CR>', { noremap = true, silent = true, desc = '[O]bsidian [L]inks' })
+vim.keymap.set('n', '<leader>ol', ':ObsidianLinks<CR>', { noremap = true, silent = true, desc = '[O]bsidian [L]inks' })
+vim.keymap.set('n', '<leader>oi', '<cmd>e ~/Dokumente/Brain/inbox.md<CR>', { desc = 'Open inbox' })
+vim.keymap.set('n', '<leader>oa', '<cmd>e ~/Dokumente/Brain/Tasks.md<CR>', { desc = 'Open Agenda' })
+vim.keymap.set('n', 'gf', function()
+  if require('obsidian').util.cursor_on_markdown_link() then
+    return '<cmd>ObsidianFollowLink<CR>'
+  else
+    return 'gf'
+  end
+end, { noremap = false, expr = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -473,7 +491,7 @@ require('lazy').setup {
 
       -- Shortcut for searching your neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = '~/dotfiles/nvim/' }
+        builtin.find_files { cwd = '~/.config/nvim/' }
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
@@ -721,6 +739,7 @@ require('lazy').setup {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        pest_ls = {},
         clangd = {
           cmd = {
             'clangd',
@@ -982,16 +1001,21 @@ require('lazy').setup {
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     --'folke/tokyonight.nvim',
-    'ellisonleao/gruvbox.nvim',
+    -- 'ellisonleao/gruvbox.nvim',
+    'rebelot/kanagawa.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
       if not vim.g.neovide then
-        require('gruvbox').setup { transparent_mode = true }
+        require('kanagawa').setup { transparent = true }
       end
       --vim.cmd.colorscheme 'tokyonight-moon'
-      vim.cmd.colorscheme 'gruvbox'
+      -- vim.cmd.colorscheme 'gruvbox'
+      vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'kanagawa-wave'
+      -- vim.cmd.colorscheme 'kanagawa-dragon'
+      -- vim.cmd.colorscheme 'kanagawa-lotus'
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
@@ -1079,7 +1103,7 @@ require('lazy').setup {
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.lint',
+  -- require 'kickstart.plugins.lint',
   -- require("kickstart.plugins.indent_line"),
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

@@ -30,13 +30,19 @@ return {
 
     dap.adapters.gdb = {
       type = 'executable',
-      command = 'rust-gdb',
+      command = 'gdb',
       name = 'gdb',
+      args = { '-i', 'dap' },
+    }
+    dap.adapters.rust_gdb = {
+      type = 'executable',
+      command = 'rust-gdb',
+      name = 'rust-gdb',
       args = { '-i', 'dap' },
     }
     dap.configurations.rust = {
       {
-        type = 'gdb',
+        type = 'rust-gdb',
         name = 'Launch',
         request = 'launch',
         program = function()
@@ -82,8 +88,8 @@ return {
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
-    vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-    vim.keymap.set('n', '<leader>B', function()
+    vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+    vim.keymap.set('n', '<leader>dB', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
 

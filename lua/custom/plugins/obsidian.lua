@@ -40,16 +40,16 @@ return {
       -- levels defined by "vim.log.levels.*".
       log_level = vim.log.levels.INFO,
 
-      -- daily_notes = {
-      -- 	-- Optional, if you keep daily notes in a separate directory.
-      -- 	folder = "notes/dailies",
-      -- 	-- Optional, if you want to change the date format for the ID of daily notes.
-      -- 	date_format = "%Y-%m-%d",
-      -- 	-- Optional, if you want to change the date format of the default alias of daily notes.
-      -- 	alias_format = "%B %-d, %Y",
-      -- 	-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-      -- 	template = nil,
-      -- },
+      daily_notes = {
+        -- Optional, if you keep daily notes in a separate directory.
+        folder = 'journal/',
+        -- Optional, if you want to change the date format for the ID of daily notes.
+        date_format = '%d-%m-%Y',
+        -- Optional, if you want to change the date format of the default alias of daily notes.
+        alias_format = '%B %-d, %Y',
+        -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+        template = 'daily.md',
+      },
 
       -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
       completion = {
@@ -176,8 +176,8 @@ return {
       ---@param url string
       follow_url_func = function(url)
         -- Open the URL in the default web browser.
-        vim.fn.jobstart { 'open', url } -- Mac OS
-        -- vim.fn.jobstart({"xdg-open", url})  -- linux
+        -- vim.fn.jobstart { 'firefox', url } -- Mac OS
+        vim.fn.jobstart { 'xdg-open', url } -- linux
       end,
 
       -- Optional, set to true if you use the Obsidian Advanced URI plugin.
@@ -303,16 +303,5 @@ return {
         end,
       },
     }
-    vim.keymap.set('n', '<leader>on', ':ObsidianNew<CR>', { noremap = true, silent = true, buffer = true, desc = '[O]bsidian [N]ew' })
-    vim.keymap.set('n', '<leader>oo', ':ObsidianOpen<CR>', { noremap = true, silent = true, buffer = true, desc = '[O]bsidian [O]pen' })
-    vim.keymap.set('n', '<leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true, buffer = true, desc = '[O]bsidian [T]oday' })
-    vim.keymap.set('n', '<leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true, buffer = true, desc = '[O]bsidian [T]oday' })
-    vim.keymap.set('n', 'gf', function()
-      if require('obsidian').util.cursor_on_markdown_link() then
-        return '<cmd>ObsidianFollowLink<CR>'
-      else
-        return 'gf'
-      end
-    end, { noremap = false, expr = true })
   end,
 }

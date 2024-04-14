@@ -4,6 +4,8 @@
 -- See the kickstart.nvim README for more information
 return {
   -- 'vifm/vifm.vim',
+  'bivab/prob.vim',
+  'pest-parser/pest.vim',
   'ThePrimeagen/vim-be-good',
   'tpope/vim-fugitive',
   'lvimuser/lsp-inlayhints.nvim',
