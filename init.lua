@@ -219,9 +219,8 @@ vim.keymap.set('n', '<leader>ot', ':ObsidianToday<CR>', { noremap = true, silent
 vim.keymap.set('n', '<leader>of', ':ObsidianQuickSwitch<CR>', { noremap = true, silent = true, desc = '[O]bsidian [F]ind Note' })
 vim.keymap.set('n', '<leader>of', ':ObsidianQuickSwitch<CR>', { noremap = true, silent = true, desc = '[O]bsidian [T]oday' })
 vim.keymap.set('n', '<leader>ol', ':ObsidianLinks<CR>', { noremap = true, silent = true, desc = '[O]bsidian [L]inks' })
-vim.keymap.set('n', '<leader>ol', ':ObsidianLinks<CR>', { noremap = true, silent = true, desc = '[O]bsidian [L]inks' })
 vim.keymap.set('n', '<leader>oi', '<cmd>e ~/Dokumente/Brain/inbox.md<CR>', { desc = 'Open inbox' })
-vim.keymap.set('n', '<leader>oa', '<cmd>e ~/Dokumente/Brain/Tasks.md<CR>', { desc = 'Open Agenda' })
+vim.keymap.set('n', '<leader>oa', '<cmd>e ~/Dokumente/Brain/SystemSculpt/Tasks/Tasks.md<CR>', { desc = 'Open Agenda' })
 vim.keymap.set('n', 'gf', function()
   if require('obsidian').util.cursor_on_markdown_link() then
     return '<cmd>ObsidianFollowLink<CR>'
