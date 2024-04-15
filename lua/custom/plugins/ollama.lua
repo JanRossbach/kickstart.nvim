@@ -10,6 +10,48 @@ local writing_prompt = 'You are a helpful AI assitent to a computer science MSC 
 local coding_model = 'starcoder'
 local writing_model = 'mistral'
 
+local function merge(...)
+  local result = {}
+  -- For each source table
+  for _, t in ipairs { ... } do
+    -- For each pair in t
+    for k, v in pairs(t) do
+      result[k] = v
+    end
+  end
+  return result
+end
+
+function readAll(file)
+    local f = assert(io.open(file, "rb"))
+    local content = f:read("*all")
+    f:close()
+    return content
+end
+
+local function get_prompts(path)
+  local prompts = {}
+  for _, dir in ipairs(vim.fn.readdir(path)) do
+    -- the name of the prompt is the name of the directory with a "fabric" in front
+    local prompt_name = 'Fabric_' .. dir
+    local prompt = { model = writing_model}
+    -- read the user.md file to string
+    local system_prompt = readAll(path .. dir .. '/system.md')
+    if system_prompt then
+      prompt.prompt = system_prompt .. '$sel'
+    else
+      goto continue
+    end
+
+    prompts[prompt_name] = prompt
+
+    ::continue::
+  end
+  return prompts
+end
+
+local fabric_prompts = get_prompts '/home/jan/.config/fabric/patterns/'
+
 return {
   'nomnivore/ollama.nvim',
   dependencies = {
@@ -47,8 +89,7 @@ return {
       stop_args = { '-SIGTERM', 'ollama' },
     },
     -- View the actual default prompts in ./lua/ollama/prompts.lua
-    prompts = {
-      Sample_Prompt = false,
+    prompts = merge(fabric_prompts, {
       Jenni_raw = {
         system_prompt = writing_prompt,
         prompt = '$input: $sel\n',
@@ -99,6 +140,6 @@ return {
         model = writing_model,
         action = 'display',
       },
-    },
+    }),
   },
 }
