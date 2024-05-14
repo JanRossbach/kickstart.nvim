@@ -1,14 +1,21 @@
 local project_description =
   'A technical report describing the Methodology for securing autonomous train perception compnents, that was developed by the Project KI-LOK. Should be in the style of an academic paper and focus on how the developed methods work together.'
-local project_prompt = 'You are a researcher working on a paper defined as: '
+local project_prompt = 'You are a helpful AI assistent to a computer science researcher working on a paper that is best described as: '
   .. project_description
-  .. 'The $ftype Document you are working on is: $buf\n\n'
-  .. 'Please format your answer in latex!'
+  .. 'Please format all your answer in latex.'
+  .. 'Prioritize clear and concise langauge and ensure a high level of technical detail.'
+  .. 'Only output the text and avoid any additional explanations or comments.'
+  .. 'Always ensure, that your output is correct and free of errors.'
+  .. 'Always ensure, that your output makes sense in the context of the paper and fits the overall narrative.'
+  .. 'Always ensure, that your output is free of spelling and grammar errors.'
+  .. 'Always ensure, that your output is free of plagiarism.'
+  .. 'Insert regular line breaks after around 80 characters.'
 
 local writing_prompt = 'You are a helpful AI assitent to a computer science MSC student doing UNI homwork.'
+local buffer_context = 'In the context of the paper: $buf\n'
 
-local coding_model = 'starcoder'
-local writing_model = 'mistral'
+local coding_model = 'llama3'
+local writing_model = 'llama3'
 
 local function merge(...)
   local result = {}
@@ -22,28 +29,58 @@ local function merge(...)
   return result
 end
 
-function readAll(file)
-    local f = assert(io.open(file, "rb"))
-    local content = f:read("*all")
-    f:close()
-    return content
+local function readAll(file)
+  local f = assert(io.open(file, 'rb'))
+  local content = f:read '*all'
+  f:close()
+  return content
+end
+
+local function shallowcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in pairs(orig) do
+            copy[orig_key] = orig_value
+        end
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
 end
 
 local function get_prompts(path)
   local prompts = {}
   for _, dir in ipairs(vim.fn.readdir(path)) do
     -- the name of the prompt is the name of the directory with a "fabric" in front
-    local prompt_name = 'Fabric_' .. dir
-    local prompt = { model = writing_model}
+    local p = { model = writing_model }
     -- read the user.md file to string
     local system_prompt = readAll(path .. dir .. '/system.md')
     if system_prompt then
-      prompt.prompt = system_prompt .. '$sel'
+      p.system = system_prompt
     else
       goto continue
     end
 
-    prompts[prompt_name] = prompt
+    p.promt = '$sel\n'
+
+    local pname_sel = 'Fabric ' .. dir .. ' Selection'
+    local pname_input = 'Fabric ' .. dir .. ' Input'
+    local pname_buffer = 'Fabric ' .. dir .. ' Buffer'
+
+    local pinput = shallowcopy(p)
+    local pbuffer = shallowcopy(p)
+
+    prompts[pname_sel] = p
+
+    pinput.prompt = '$input\n'
+
+    prompts[pname_input] = pinput
+
+    pbuffer.prompt = '$buf\n'
+
+    prompts[pname_buffer] = pbuffer
 
     ::continue::
   end
@@ -90,53 +127,79 @@ return {
     },
     -- View the actual default prompts in ./lua/ollama/prompts.lua
     prompts = merge(fabric_prompts, {
+      raw = {
+        system = project_prompt,
+        prompt = '$input',
+        input_label = '> ',
+        model = writing_model,
+        action = 'display',
+      },
+      raw_sel = {
+        system = project_prompt,
+        prompt = '$input:\n$sel',
+        model = writing_model,
+        action = 'display',
+      },
+      Jenni_continue = {
+        system = project_prompt,
+        prompt = buffer_context .. 'Please continue the input.',
+        model = writing_model,
+        action = 'display',
+      },
       Jenni_raw = {
-        system_prompt = writing_prompt,
-        prompt = '$input: $sel\n',
+        system = writing_prompt,
+        prompt = 'Given the paper code: $buf\n$input',
+        input_label = '> ',
+        model = writing_model,
+        action = 'display',
+      },
+      Jenni_raw_with_sel = {
+        system = writing_prompt,
+        prompt = 'Given the paper code: $buf\n and the following part: $sel\n$input',
         input_label = '> ',
         model = writing_model,
         action = 'display',
       },
       Jenni_expand = {
-        system_prompt = project_prompt,
-        prompt = 'Please expand the following section by filling in gaps and expanding on bullet points: $sel',
+        system = project_prompt,
+        prompt = buffer_context .. 'Please expand the bullet points into a coherent text: $sel',
         action = 'display',
         model = writing_model,
       },
       Jenni_rephrase = {
-        system_prompt = project_prompt,
-        prompt = 'Plase rephrase the following section in your own words: $sel',
+        system = project_prompt,
+        prompt = buffer_context .. '$buf\nPlase rephrase the following section in your own words: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_cite = {
-        system_prompt = project_prompt,
-        prompt = 'Please find a citation for the following statement: $sel',
+        system = project_prompt,
+        prompt = buffer_context .. 'Please find a citation for the following statement: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_simplify = {
-        system_prompt = project_prompt,
-        prompt = 'Please simplify the following section: $sel',
+        system = project_prompt,
+        prompt = buffer_context .. 'Please simplify the following section: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_improve_fluency = {
-        system_prompt = project_prompt,
-        prompt = 'Please improve the fluency of the following section: $sel',
+        system = project_prompt,
+        prompt = buffer_context .. 'Please improve the fluency of the following section: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_paraphrase = {
-        system_prompt = project_prompt,
-        prompt = 'Please paraphrase the following section so that it is more $input: $sel',
+        system = project_prompt,
+        prompt = buffer_context .. 'Please paraphrase the following section so that it is more $input: $sel',
         input_label = '> ',
         model = writing_model,
         action = 'display',
       },
       Jenni_ask = {
-        system_prompt = project_prompt,
-        prompt = 'Can you please answer the following question: $input',
+        system = project_prompt,
+        prompt = buffer_context .. 'Can you please answer the following question: $input',
         model = writing_model,
         action = 'display',
       },

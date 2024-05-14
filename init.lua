@@ -199,7 +199,7 @@ vim.keymap.set('n', '<leader>gs', '<cmd>vertical G<CR>', { desc = 'Open Fugitive
 
 vim.keymap.set('n', '<leader>fm', '<cmd>vsplit<CR><cmd>terminal yazi<CR>i', { desc = 'Open Yazi' })
 vim.keymap.set('n', '<leader>ocd', '<cmd>cd %:p:h<CR>', { desc = 'Change workingDirectory to current buffer dir' })
-vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>fed', '<cmd>e ~/.config/nvim/init.lua<CR>', { desc = 'Open nvim config' })
 
@@ -780,6 +780,7 @@ require('lazy').setup {
             },
           },
         },
+        zls = {},
         ruff_lsp = {
           settings = {
             args = {
@@ -942,6 +943,7 @@ require('lazy').setup {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
@@ -1000,23 +1002,36 @@ require('lazy').setup {
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     --'folke/tokyonight.nvim',
-    -- 'ellisonleao/gruvbox.nvim',
-    'rebelot/kanagawa.nvim',
+    'ellisonleao/gruvbox.nvim',
+    -- 'rebelot/kanagawa.nvim',
+    -- 'catppuccin/nvim',
+    -- 'scottmckendry/cyberdream.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
       if not vim.g.neovide then
-        require('kanagawa').setup { transparent = true }
+        require('gruvbox').setup {}
+        -- require('kanagawa').setup { transparent = true }
+        -- require('catppuccin').setup {
+        --   flavour = 'mocha',
+        -- }
       else
-        vim.g.neovide_transparency = 0.85
+        vim.g.neovide_transparency = 0.90
+        vim.g.neovide_cursor_animation_length = 0.1
+        vim.g.neovide_cursor_trail_size = 0.1
+        vim.g.neovide_cursor_animate_in_insert_mode = true
+        vim.g.neovide_cursor_vfx_mode = 'wireframe'
+        vim.g.neovide_refresh_rate = 90
+        vim.g.neovide_scroll_animation_length = 0.15
       end
       --vim.cmd.colorscheme 'tokyonight-moon'
-      -- vim.cmd.colorscheme 'gruvbox'
-      vim.cmd.colorscheme 'kanagawa'
-      vim.cmd.colorscheme 'kanagawa-wave'
+      vim.cmd.colorscheme 'gruvbox'
+      -- vim.cmd.colorscheme 'kanagawa'
+      -- vim.cmd.colorscheme 'kanagawa-wave'
       -- vim.cmd.colorscheme 'kanagawa-dragon'
       -- vim.cmd.colorscheme 'kanagawa-lotus'
+      -- vim.cmd.colorscheme 'catppuccin-mocha'
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
