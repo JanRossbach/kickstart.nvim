@@ -12,7 +12,6 @@ local project_prompt = 'You are a helpful AI assistent to a computer science res
   .. 'Insert regular line breaks after around 80 characters.'
 
 local writing_prompt = 'You are a helpful AI assitent to a computer science MSC student doing UNI homwork.'
-local buffer_context = 'In the context of the paper: $buf\n'
 
 local coding_model = 'llama3'
 local writing_model = 'llama3'
@@ -142,7 +141,7 @@ return {
       },
       Jenni_continue = {
         system = project_prompt,
-        prompt = buffer_context .. 'Please continue the input.',
+        prompt = 'Please continue the input.',
         model = writing_model,
         action = 'display',
       },
@@ -162,44 +161,44 @@ return {
       },
       Jenni_expand = {
         system = project_prompt,
-        prompt = buffer_context .. 'Please expand the bullet points into a coherent text: $sel',
+        prompt = 'Please expand the bullet points into a coherent text: $sel',
         action = 'display',
         model = writing_model,
       },
       Jenni_rephrase = {
         system = project_prompt,
-        prompt = buffer_context .. '$buf\nPlase rephrase the following section in your own words: $sel',
+        prompt = '$buf\nPlase rephrase the following section in your own words: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_cite = {
         system = project_prompt,
-        prompt = buffer_context .. 'Please find a citation for the following statement: $sel',
+        prompt = 'Please find a citation for the following statement: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_simplify = {
         system = project_prompt,
-        prompt = buffer_context .. 'Please simplify the following section: $sel',
+        prompt = 'Please simplify the following section: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_improve_fluency = {
         system = project_prompt,
-        prompt = buffer_context .. 'Please improve the fluency of the following section: $sel',
+        prompt = 'Please improve the fluency of the following section: $sel',
         model = writing_model,
         action = 'display',
       },
       Jenni_paraphrase = {
         system = project_prompt,
-        prompt = buffer_context .. 'Please paraphrase the following section so that it is more $input: $sel',
+        prompt = 'Please paraphrase the following section so that it is more $input: $sel',
         input_label = '> ',
         model = writing_model,
         action = 'display',
       },
       Jenni_ask = {
         system = project_prompt,
-        prompt = buffer_context .. 'Can you please answer the following question: $input',
+        prompt = 'Can you please answer the following question: $input',
         model = writing_model,
         action = 'display',
       },
