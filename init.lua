@@ -793,27 +793,27 @@ require('lazy').setup {
           },
         },
         zls = {},
-        ruff_lsp = {
+        -- ruff = {
+        --   settings = {
+        --     args = {
+        --       codeAction = {
+        --         fixViolation = { enable = true },
+        --       },
+        --       fixAll = true,
+        --     },
+        --   },
+        -- },
+        pyright = {
           settings = {
-            args = {
-              codeAction = {
-                fixViolation = { enable = true },
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = 'workspace',
+                useLibraryCodeForTypes = true,
               },
-              fixAll = true,
             },
           },
         },
-        -- pyright = {
-        -- 	settings = {
-        -- 		python = {
-        -- 			analysis = {
-        -- 				autoSearchPaths = true,
-        -- 				diagnosticMode = "workspace",
-        -- 				useLibraryCodeForTypes = true,
-        -- 			},
-        -- 		},
-        -- 	},
-        -- },
         rust_analyzer = {
           settings = {
             ['rust_analyzer'] = {
@@ -1003,6 +1003,7 @@ require('lazy').setup {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'supermaven' },
         },
       }
     end,
@@ -1013,7 +1014,7 @@ require('lazy').setup {
     -- change the command in the config to whatever the name of that colorscheme is
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    --'folke/tokyonight.nvim',
+    -- 'folke/tokyonight.nvim',
     'ellisonleao/gruvbox.nvim',
     -- 'rebelot/kanagawa.nvim',
     -- 'catppuccin/nvim',
@@ -1023,6 +1024,7 @@ require('lazy').setup {
     config = function()
       -- Load the colorscheme here
       if not vim.g.neovide then
+        -- require('tokyonight').setup {}
         require('gruvbox').setup {}
         -- require('kanagawa').setup { transparent = true }
         -- require('catppuccin').setup {
@@ -1037,7 +1039,7 @@ require('lazy').setup {
         vim.g.neovide_refresh_rate = 90
         vim.g.neovide_scroll_animation_length = 0.15
       end
-      --vim.cmd.colorscheme 'tokyonight-moon'
+      -- vim.cmd.colorscheme 'tokyonight-moon'
       vim.cmd.colorscheme 'gruvbox'
       -- vim.cmd.colorscheme 'kanagawa'
       -- vim.cmd.colorscheme 'kanagawa-wave'
@@ -1100,7 +1102,7 @@ require('lazy').setup {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'latex' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = { enable = true },
@@ -1143,3 +1145,4 @@ require('lazy').setup {
 }
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
