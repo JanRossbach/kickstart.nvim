@@ -1,5 +1,5 @@
 local project_description =
-  'A technical report describing the Methodology for securing autonomous train perception compnents, that was developed by the Project KI-LOK. Should be in the style of an academic paper and focus on how the developed methods work together.'
+  'A six page vision paper on simulating a formal B Model of autonomous train system using AI perception systems nd using a runtime monitor to validate perception results.'
 local project_prompt = 'You are a helpful AI assistent to a computer science researcher working on a paper that is best described as: '
   .. project_description
   .. 'Please format all your answer in latex.'
@@ -11,7 +11,7 @@ local project_prompt = 'You are a helpful AI assistent to a computer science res
   .. 'Always ensure, that your output is free of plagiarism.'
   .. 'Insert regular line breaks after around 80 characters.'
 
-local writing_prompt = 'You are a helpful AI assitent to a computer science MSC student doing UNI homwork.'
+local writing_prompt = 'You are a helpful AI assitent to a computer science doctoral condidate writing scientific papers.'
 
 local coding_model = 'llama3'
 local writing_model = 'llama3'

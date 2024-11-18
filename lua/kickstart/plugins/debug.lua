@@ -42,7 +42,7 @@ return {
     }
     dap.configurations.rust = {
       {
-        type = 'rust-gdb',
+        type = 'rust_gdb',
         name = 'Launch',
         request = 'launch',
         program = function()

@@ -12,5 +12,6 @@ return {
   'mfussenegger/nvim-jdtls',
   'mhinz/vim-startify',
   'jvgrootveld/telescope-zoxide',
+  'rktjmp/lush.nvim',
   -- 'github/copilot.vim',
 }

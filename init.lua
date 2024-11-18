@@ -793,16 +793,16 @@ require('lazy').setup {
           },
         },
         zls = {},
-        -- ruff = {
-        --   settings = {
-        --     args = {
-        --       codeAction = {
-        --         fixViolation = { enable = true },
-        --       },
-        --       fixAll = true,
-        --     },
-        --   },
-        -- },
+        ruff = {
+          settings = {
+            args = {
+              codeAction = {
+                fixViolation = { enable = true },
+              },
+              fixAll = true,
+            },
+          },
+        },
         pyright = {
           settings = {
             python = {
@@ -1014,11 +1014,15 @@ require('lazy').setup {
     -- change the command in the config to whatever the name of that colorscheme is
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    -- 'folke/tokyonight.nvim',
+    --'folke/tokyonight.nvim',
     'ellisonleao/gruvbox.nvim',
+    -- 'bluz71/vim-nightfly-guicolors',
+    -- 'vague2k/vague.nvim',
     -- 'rebelot/kanagawa.nvim',
     -- 'catppuccin/nvim',
     -- 'scottmckendry/cyberdream.nvim',
+    -- 'ab-dx/ares.nvim',
+    -- name = 'ares',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
@@ -1039,13 +1043,16 @@ require('lazy').setup {
         vim.g.neovide_refresh_rate = 90
         vim.g.neovide_scroll_animation_length = 0.15
       end
-      -- vim.cmd.colorscheme 'tokyonight-moon'
+      --vim.cmd.colorscheme 'tokyonight-moon'
       vim.cmd.colorscheme 'gruvbox'
+      -- vim.cmd.colorscheme 'nightfly'
+      -- vim.cmd.colorscheme 'ares'
       -- vim.cmd.colorscheme 'kanagawa'
       -- vim.cmd.colorscheme 'kanagawa-wave'
       -- vim.cmd.colorscheme 'kanagawa-dragon'
       -- vim.cmd.colorscheme 'kanagawa-lotus'
       -- vim.cmd.colorscheme 'catppuccin-mocha'
+      -- vim.cmd.colorscheme 'catppuccin'
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
@@ -1145,4 +1152,4 @@ require('lazy').setup {
 }
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
---
+-- vim.cmd.colorscheme 'ares'
