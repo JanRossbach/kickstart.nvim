@@ -16,77 +16,78 @@ local writing_prompt = 'You are a helpful AI assitent to a computer science doct
 local coding_model = 'llama3'
 local writing_model = 'llama3'
 
-local function merge(...)
-  local result = {}
-  -- For each source table
-  for _, t in ipairs { ... } do
-    -- For each pair in t
-    for k, v in pairs(t) do
-      result[k] = v
-    end
-  end
-  return result
-end
+-- Reading the fabric prompts from the filesystem, stopped using this because I just never use it.
+-- local function merge(...)
+--   local result = {}
+--   -- For each source table
+--   for _, t in ipairs { ... } do
+--     -- For each pair in t
+--     for k, v in pairs(t) do
+--       result[k] = v
+--     end
+--   end
+--   return result
+-- end
+--
+-- local function readAll(file)
+--   local f = assert(io.open(file, 'rb'))
+--   local content = f:read '*all'
+--   f:close()
+--   return content
+-- end
+--
+-- local function shallowcopy(orig)
+--     local orig_type = type(orig)
+--     local copy
+--     if orig_type == 'table' then
+--         copy = {}
+--         for orig_key, orig_value in pairs(orig) do
+--             copy[orig_key] = orig_value
+--         end
+--     else -- number, string, boolean, etc
+--         copy = orig
+--     end
+--     return copy
+-- end
+--
+-- local function get_prompts(path)
+--   local prompts = {}
+--   for _, dir in ipairs(vim.fn.readdir(path)) do
+--     -- the name of the prompt is the name of the directory with a "fabric" in front
+--     local p = { model = writing_model }
+--     -- read the user.md file to string
+--     local system_prompt = readAll(path .. dir .. '/system.md')
+--     if system_prompt then
+--       p.system = system_prompt
+--     else
+--       goto continue
+--     end
+--
+--     p.promt = '$sel\n'
+--
+--     local pname_sel = 'Fabric ' .. dir .. ' Selection'
+--     local pname_input = 'Fabric ' .. dir .. ' Input'
+--     local pname_buffer = 'Fabric ' .. dir .. ' Buffer'
+--
+--     local pinput = shallowcopy(p)
+--     local pbuffer = shallowcopy(p)
+--
+--     prompts[pname_sel] = p
+--
+--     pinput.prompt = '$input\n'
+--
+--     prompts[pname_input] = pinput
+--
+--     pbuffer.prompt = '$buf\n'
+--
+--     prompts[pname_buffer] = pbuffer
+--
+--     ::continue::
+--   end
+--   return prompts
+-- end
 
-local function readAll(file)
-  local f = assert(io.open(file, 'rb'))
-  local content = f:read '*all'
-  f:close()
-  return content
-end
-
-local function shallowcopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in pairs(orig) do
-            copy[orig_key] = orig_value
-        end
-    else -- number, string, boolean, etc
-        copy = orig
-    end
-    return copy
-end
-
-local function get_prompts(path)
-  local prompts = {}
-  for _, dir in ipairs(vim.fn.readdir(path)) do
-    -- the name of the prompt is the name of the directory with a "fabric" in front
-    local p = { model = writing_model }
-    -- read the user.md file to string
-    local system_prompt = readAll(path .. dir .. '/system.md')
-    if system_prompt then
-      p.system = system_prompt
-    else
-      goto continue
-    end
-
-    p.promt = '$sel\n'
-
-    local pname_sel = 'Fabric ' .. dir .. ' Selection'
-    local pname_input = 'Fabric ' .. dir .. ' Input'
-    local pname_buffer = 'Fabric ' .. dir .. ' Buffer'
-
-    local pinput = shallowcopy(p)
-    local pbuffer = shallowcopy(p)
-
-    prompts[pname_sel] = p
-
-    pinput.prompt = '$input\n'
-
-    prompts[pname_input] = pinput
-
-    pbuffer.prompt = '$buf\n'
-
-    prompts[pname_buffer] = pbuffer
-
-    ::continue::
-  end
-  return prompts
-end
-
-local fabric_prompts = get_prompts '/home/jan/.config/fabric/patterns/'
+-- local fabric_prompts = get_prompts '/home/jan/.config/fabric/patterns/'
 
 return {
   'nomnivore/ollama.nvim',
@@ -125,7 +126,7 @@ return {
       stop_args = { '-SIGTERM', 'ollama' },
     },
     -- View the actual default prompts in ./lua/ollama/prompts.lua
-    prompts = merge(fabric_prompts, {
+    prompts = {
       raw = {
         system = project_prompt,
         prompt = '$input',
@@ -202,6 +203,6 @@ return {
         model = writing_model,
         action = 'display',
       },
-    }),
+    },
   },
 }
