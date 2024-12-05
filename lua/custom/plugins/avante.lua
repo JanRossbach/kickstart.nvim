@@ -9,7 +9,8 @@ return {
     vendors = {
       ---@type AvanteProvider
       ollama = {
-        ['local'] = true,
+        -- ['local'] = true,
+        api_key_name = '',
         endpoint = 'http://localhost:11434/v1',
         model = 'qwen2.5-coder:14b',
         parse_curl_args = function(opts, code_opts)

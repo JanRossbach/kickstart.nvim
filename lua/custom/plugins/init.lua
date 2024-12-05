@@ -10,7 +10,7 @@ return {
   'tpope/vim-fugitive',
   'lvimuser/lsp-inlayhints.nvim',
   'mfussenegger/nvim-jdtls',
-  'mhinz/vim-startify',
+  -- 'mhinz/vim-startify',
   'jvgrootveld/telescope-zoxide',
   'rktjmp/lush.nvim',
   -- 'github/copilot.vim',
