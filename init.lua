@@ -267,7 +267,7 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require('lazy').setup {
+require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -352,12 +352,12 @@ require('lazy').setup {
         },
       },
     },
-      config = function()
+    config = function()
       -- Document existing key chains
       require('which-key').add {
         { '<leader>G', group = '[G]enerate' },
         { '<leader>G_', hidden = true },
-        { '<leader>c', group = '[C]ode' , mode = {'n'}},
+        { '<leader>c', group = '[C]ode', mode = { 'n' } },
         { '<leader>c_', hidden = true },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>d_', hidden = true },
@@ -380,8 +380,8 @@ require('lazy').setup {
         { '<leader>w', group = '[W]indow' },
         { '<leader>w_', hidden = true },
       }
-      end,
-    },
+    end,
+  },
 
   -- NOTE: Plugins can specify dependencies.
   --
@@ -1256,7 +1256,7 @@ require('lazy').setup {
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1264,12 +1264,7 @@ require('lazy').setup {
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins' },
-  -- { import = 'custom.plugins' },
-  --
-  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
-  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-  -- you can continue same window with `<space>sr` which resumes last telescope search
+}, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
@@ -1289,8 +1284,7 @@ require('lazy').setup {
       lazy = '💤 ',
     },
   },
-}
-
+})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 -- vim.cmd.colorscheme 'ares'
