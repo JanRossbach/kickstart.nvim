@@ -1154,7 +1154,7 @@ require('lazy').setup({
         --   flavour = 'mocha',
         -- }
       else
-        vim.g.neovide_transparency = 0.90
+        vim.g.neovide_transparency = 1.0
         vim.g.neovide_cursor_animation_length = 0.1
         vim.g.neovide_cursor_trail_size = 0.1
         vim.g.neovide_cursor_animate_in_insert_mode = true
@@ -1164,6 +1164,7 @@ require('lazy').setup({
       end
       --vim.cmd.colorscheme 'tokyonight-moon'
       vim.cmd.colorscheme 'gruvbox'
+      -- vim.cmd.colorscheme 'base16' -- Jblow theme
       -- vim.cmd.colorscheme 'nightfly'
       -- vim.cmd.colorscheme 'ares'
       -- vim.cmd.colorscheme 'kanagawa'

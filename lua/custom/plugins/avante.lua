@@ -12,7 +12,7 @@ return {
         -- ['local'] = true,
         api_key_name = '',
         endpoint = 'http://localhost:11434/v1',
-        model = 'qwen2.5-coder:14b',
+        model = 'deepseek-r1:8b',
         parse_curl_args = function(opts, code_opts)
           return {
             url = opts.endpoint .. '/chat/completions',
@@ -44,6 +44,9 @@ return {
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
     --- The below dependencies are optional,
+    'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+    'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
+    'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
     -- 'zbirenbaum/copilot.lua', -- for providers='copilot'
     {
