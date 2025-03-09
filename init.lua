@@ -194,7 +194,7 @@ vim.keymap.set('n', '<leader>w-', vim.cmd.split, { desc = 'Split horizontally' }
 vim.keymap.set('n', '<leader>wd', vim.cmd.q, { desc = 'Delete Window' })
 
 vim.keymap.set('n', '<leader><leader>x', vim.cmd.source, { desc = 'Source current buffer' })
-vim.keymap.set('n', '<leader>fs', vim.cmd.w, { desc = 'Save current buffer' })
+vim.keymap.set('n', '<leader>fs', vim.cmd.wa, { desc = 'Save current buffer' })
 
 vim.keymap.set('n', '<leader>gs', '<cmd>vertical G<CR>', { desc = 'Open Fugitive' })
 
@@ -836,12 +836,13 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         pest_ls = {},
-        clangd = {
-          cmd = {
-            'clangd',
-            '--offset-encoding=utf-16',
-          },
-        },
+        -- clangd = {
+        --   cmd = {
+        --     'clangd',
+        --     '--offset-encoding=utf-16',
+        --   },
+        -- },
+        protols = {},
         -- gopls = {},
         texlab = {
           settings = {
