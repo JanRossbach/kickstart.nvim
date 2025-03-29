@@ -19,10 +19,6 @@ return {
         end,
       }
 
-      -- vim.keymap.set('n', '<leader>gl', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
-      -- vim.keymap.set('n', '<C-CR>', '<cmd>exe v:count1 . "ToggleTerm"<CR>i', { noremap = true, silent = true, desc = 'Toggle Floating Terminal' })
-      -- vim.keymap.set('t', '<C-CR>', '<C-\\><C-n><cmd>exe v:count1 . "ToggleTerm"<CR>', { noremap = true, silent = true, desc = 'Toggle Floating Terminal' })
-      --
       vim.keymap.set(
         'n',
         '<c-t><c-v>',
@@ -41,9 +37,6 @@ return {
         '<cmd>exe v:count1 . "ToggleTerm direction=float"<CR>',
         { noremap = true, silent = true, desc = 'Toggle Horizontal Terminal' }
       )
-
-      -- vim.api.nvim_set_keymap('n', '<leader>gs', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
-      -- vim.keymap.set('n', '<leader>Gp', '<cmd>lua _ollama_toggle()<CR>', { noremap = true, silent = true })
     end,
   },
 }
