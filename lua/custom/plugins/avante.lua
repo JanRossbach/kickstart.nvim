@@ -7,7 +7,7 @@ return {
     provider = 'ollama',
     ollama = {
       endpoint = 'http://127.0.0.1:11434', -- Note that there is no /v1 at the end.
-      model = 'qwq',
+      model = 'qwen3:4b',
     },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

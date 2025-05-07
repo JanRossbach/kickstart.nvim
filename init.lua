@@ -721,7 +721,7 @@ require('lazy').setup({
           vim.cmd 'setlocal spelllang=en_us'
           -- vim.cmd("setlocal spellfile=~/.config/nvim/spell/en.utf-8.add")
 
-          vim.keymap.set('n', '<localleader>cc', '<cmd>TexlabBuild<CR>', { desc = 'Build LaTeX' })
+          vim.keymap.set('n', '<localleader>cc', '<cmd>LspTexlabBuild<CR>', { desc = 'Build LaTeX' })
         end,
       })
 
@@ -1049,7 +1049,8 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'black' },
+        rust = { 'rustfmt' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -1242,12 +1243,12 @@ require('lazy').setup({
         --   flavour = 'mocha',
         -- }
       else
-        vim.g.neovide_transparency = 1.0
+        vim.g.neovide_opacity = 1.0
         vim.g.neovide_cursor_animation_length = 0.1
         vim.g.neovide_cursor_trail_size = 0.1
         vim.g.neovide_cursor_animate_in_insert_mode = true
         vim.g.neovide_cursor_vfx_mode = 'wireframe'
-        vim.g.neovide_refresh_rate = 90
+        vim.g.neovide_refresh_rate = 165
         vim.g.neovide_scroll_animation_length = 0.15
       end
       --vim.cmd.colorscheme 'tokyonight-moon'
