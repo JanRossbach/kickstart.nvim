@@ -9,6 +9,7 @@ return {
         direction = 'float',
         open_mapping = [[<c-cr>]],
         autochdir = true,
+        shell = 'nu',
         close_on_exit = true,
         size = function(term)
           if term.direction == 'horizontal' then
