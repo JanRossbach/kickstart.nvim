@@ -452,62 +452,18 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
-          zoxide = {
-            prompt_title = '[ Zoxide List ]',
-
-            -- Zoxide list command with score
-            list_command = 'zoxide query -ls',
-            mappings = {
-              default = {
-                action = function(selection)
-                  vim.cmd.edit(selection.path)
-                end,
-                after_action = function(selection)
-                  print('Directory changed to ' .. selection.path)
-                end,
-              },
-              ['<C-s>'] = {
-                action = require('telescope._extensions.zoxide.utils').create_basic_command 'split',
-              },
-              ['<C-v>'] = {
-                action = require('telescope._extensions.zoxide.utils').create_basic_command 'vsplit',
-              },
-              ['<C-e>'] = {
-                action = require('telescope._extensions.zoxide.utils').create_basic_command 'edit',
-              },
-              -- ["<C-b>"] = {
-              -- 	keepinsert = true,
-              -- 	action = function(selection)
-              -- 		require("telescope.builtin").file_browser({ cwd = selection.path })
-              -- 	end,
-              -- },
-              ['<C-f>'] = {
-                keepinsert = true,
-                action = function(selection)
-                  require('telescope.builtin').find_files { cwd = selection.path }
-                end,
-              },
-              ['<C-t>'] = {
-                action = function(selection)
-                  vim.cmd.tcd(selection.path)
-                end,
-              },
-            },
-          },
         },
       }
 
       -- Enable telescope extensions, if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'zoxide')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ff', require('telescope').extensions.zoxide.list, { desc = '[F]ind [D]irectory' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -1343,10 +1299,10 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

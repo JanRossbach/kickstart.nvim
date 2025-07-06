@@ -4,14 +4,14 @@
 -- See the kickstart.nvim README for more information
 return {
   -- 'vifm/vifm.vim',
-  'bivab/prob.vim',
-  'pest-parser/pest.vim',
-  'ThePrimeagen/vim-be-good',
+  --'bivab/prob.vim',
+  --'pest-parser/pest.vim',
+  --'ThePrimeagen/vim-be-good',
   'tpope/vim-fugitive',
   'lvimuser/lsp-inlayhints.nvim',
-  'mfussenegger/nvim-jdtls',
+  --'mfussenegger/nvim-jdtls',
   -- 'mhinz/vim-startify',
-  'jvgrootveld/telescope-zoxide',
-  'rktjmp/lush.nvim',
+  --'jvgrootveld/telescope-zoxide',
+  --'rktjmp/lush.nvim',
   -- 'github/copilot.vim',
 }
